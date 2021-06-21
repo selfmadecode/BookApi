@@ -19,10 +19,75 @@ namespace BookApi.Controllers
         {
             _book = book;
         }
-        public IActionResult AddBook(BookVM book)
+        [HttpPost]
+        public IActionResult AddBook([FromBody]BookVM book)
         {
-            _book.AddBook(book);
-            return Ok();
+            try
+            {
+                var newBook = _book.AddBook(book);
+                return Created(nameof(AddBook), newBook);
+            }
+            catch (Exception ex)
+            {
+                //return StatusCode(500, "failed!");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetAllBooks()
+        {
+            try
+            {
+                var book = _book.GetBooks();
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{bookId}")]
+        public IActionResult GetBookById(int bookId)
+        {
+            try
+            {
+                var book = _book.GetBookById(bookId);
+
+                if (book == null)
+                    return NotFound();
+
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{bookId}")]
+        public IActionResult UpdateBookById(int bookId, [FromBody]BookVM book)
+        {
+            var updatedBook = _book.UpdateBook(bookId, book);
+            return Created(nameof(UpdateBookById), updatedBook);
+        }
+
+        [HttpDelete("{bookId}")]
+        public IActionResult DeleteBookById(int bookId)
+        {
+            try
+            {
+                _book.DeleteBookById(bookId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -18,23 +18,47 @@ namespace BookApi.Model.Services
             _context = context;
             _mapper = mapper;
         }
-        public void AddBook(BookVM book)
+        public Book AddBook(BookVM book)
         {
             var newBook = _mapper.Map<Book>(book);
             _context.Add(newBook);
             _context.SaveChanges();
+            return newBook;
         }
 
-        public BookVM GetBookById(int id)
+        public void DeleteBookById(int id)
+        {
+            var bookToBeDeleted = _context.Books.FirstOrDefault(b => b.Id == id);
+
+            if (bookToBeDeleted != null)
+            {
+                _context.Books.Remove(bookToBeDeleted);
+                _context.SaveChanges();
+            }
+        }
+
+        public Book GetBookById(int id)
         {
             var book = _context.Books.FirstOrDefault(b => b.Id == id);
-            if (book == null)
-                return null;
+            if (book == null) return null;
 
-            return _mapper.Map<BookVM>(book);            
+            return book;            
         }
 
-        public IEnumerable<BookVM> GetBooks()
-            => _mapper.Map<IEnumerable<BookVM>>(_context.Books.ToList());
+        public IEnumerable<Book> GetBooks()
+            => _context.Books.ToList();
+
+        public Book UpdateBook(int id, BookVM book)
+        {
+            var oldBook = _context.Books.FirstOrDefault(b => b.Id == id);
+
+            if(oldBook != null)
+            {
+                _mapper.Map<BookVM, Book>(book, oldBook);
+                _context.SaveChanges();
+            }
+
+            return oldBook;
+        }
     }
 }

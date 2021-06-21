@@ -32,6 +32,7 @@ namespace BookApi
         {
 
             services.AddControllers();
+                //.ConfigureApiBehaviorOptions(setupAction => setupAction.)
 
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

@@ -8,8 +8,11 @@ namespace BookApi.Model.Interfaces
 {
     public interface IBook
     {
-        void AddBook(BookVM book);
-        IEnumerable<BookVM> GetBooks();
-        BookVM GetBookById(int id);
+        Book AddBook(BookVM book);
+        IEnumerable<Book> GetBooks();
+        Book GetBookById(int id);
+        Book UpdateBook(int id, BookVM book);
+        void DeleteBookById(int id);
+
     }
 }
