@@ -9,7 +9,7 @@ namespace BookApi.Model.Interfaces
 {
     public interface IPublisher
     {
-        Publisher AddAuthor(PublisherVM publisher);
+        Publisher AddPublisher(PublisherVM publisher);
 
     }
 }

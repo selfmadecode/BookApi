@@ -28,5 +28,9 @@ namespace BookApi.Model.ViewModels
 
         [Required]
         public string CoverUrl { get; set; }
+
+
+        public int PublisherId { get; set; }
+        public List<int> AuthorIds { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace BookApi.Model.Interfaces
 {
     public interface IBook
     {
-        Book AddBook(BookVM book);
+        Book AddBookWithPublisherAndAuthors(BookVM book);
         IEnumerable<Book> GetBooks();
         Book GetBookById(int id);
         Book UpdateBook(int id, BookVM book);

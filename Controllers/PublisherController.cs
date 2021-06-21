@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BookApi.Model.Interfaces;
+using BookApi.Model.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +13,18 @@ namespace BookApi.Controllers
     [ApiController]
     public class PublisherController : ControllerBase
     {
+        private readonly IPublisher _publisher;
+
+        public PublisherController(IPublisher publisher)
+        {
+            _publisher = publisher;
+        }
+
+        [HttpPost]
+        public IActionResult AddPublisher(PublisherVM publisher)
+        {
+            _publisher.AddPublisher(publisher);
+            return Created(nameof(AddPublisher), publisher);
+        }
     }
 }

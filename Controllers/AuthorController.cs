@@ -23,8 +23,8 @@ namespace BookApi.Controllers
         [HttpPost]
         public IActionResult AddAuthor(AuthorVM author)
         {
-            _author.AddAuthor(author);
-            return Created(nameof(AddAuthor), author);
+           var newAuthor = _author.AddAuthor(author);
+            return Created(nameof(AddAuthor), newAuthor );
         }
     }
 }

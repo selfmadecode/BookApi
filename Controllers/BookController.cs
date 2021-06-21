@@ -24,7 +24,7 @@ namespace BookApi.Controllers
         {
             try
             {
-                var newBook = _book.AddBook(book);
+                var newBook = _book.AddBookWithPublisherAndAuthors(book);
                 return Created(nameof(AddBook), newBook);
             }
             catch (Exception ex)

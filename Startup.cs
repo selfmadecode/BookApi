@@ -38,6 +38,10 @@ namespace BookApi
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IBook, BookServices>();
+            services.AddScoped<IAuthor, AuthorServices>();
+            services.AddScoped<IPublisher, PublisherServices>();
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {

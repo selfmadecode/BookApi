@@ -16,7 +16,7 @@ namespace BookApi.Model.Services
         {
             _dbContext = dbContext;
         }
-        public Publisher AddAuthor(PublisherVM publisher)
+        public Publisher AddPublisher(PublisherVM publisher)
         {
             var newPublisher = new Publisher
             {
