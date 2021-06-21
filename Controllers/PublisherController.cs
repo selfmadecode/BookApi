@@ -23,8 +23,8 @@ namespace BookApi.Controllers
         [HttpPost]
         public IActionResult AddPublisher(PublisherVM publisher)
         {
-            _publisher.AddPublisher(publisher);
-            return Created(nameof(AddPublisher), publisher);
+            var newPublisher = _publisher.AddPublisher(publisher);
+            return Created(nameof(AddPublisher), newPublisher);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace BookApi.Model.Services
             };
 
             _dbContext.Authors.Add(newAuthor);
-
+            _dbContext.SaveChanges();
             return newAuthor;
         }
     }

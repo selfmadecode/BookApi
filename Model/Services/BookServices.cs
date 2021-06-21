@@ -31,8 +31,9 @@ namespace BookApi.Model.Services
             {
                 var book_authors = new Book_Author
                 {
-                    Id = newBook.Id,
-                    AuthorId = Id
+                   BookId = newBook.Id,
+                    AuthorId = Id,
+                    
                 };
                 _context.Books_Authors.Add(book_authors);
                 _context.SaveChanges();
