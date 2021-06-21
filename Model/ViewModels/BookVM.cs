@@ -24,9 +24,6 @@ namespace BookApi.Model.ViewModels
         public string Genre { get; set; }
 
         [Required]
-        public string Author { get; set; }
-
-        [Required]
         public string CoverUrl { get; set; }
 
 
