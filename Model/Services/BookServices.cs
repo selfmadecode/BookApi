@@ -2,6 +2,7 @@
 using BookApi.Model.Entities;
 using BookApi.Model.Interfaces;
 using BookApi.Model.ViewModels;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,21 +23,33 @@ namespace BookApi.Model.Services
         public Book AddBookWithPublisherAndAuthors(BookVM book)
         {
             // use dbContext transactions
-
             var newBook = _mapper.Map<Book>(book);
-            _context.Add(newBook);
-            _context.SaveChanges();
 
-            foreach (var Id in book.AuthorIds)
+
+            using (IDbContextTransaction dbContextTransaction = _context.Database.BeginTransaction())
             {
-                var book_authors = new Book_Author
+                try
                 {
-                   BookId = newBook.Id,
-                    AuthorId = Id,
-                    
-                };
-                _context.Books_Authors.Add(book_authors);
-                _context.SaveChanges();
+                    _context.Add(newBook);
+
+                    foreach (var Id in book.AuthorIds)
+                    {
+                        var book_authors = new Book_Author
+                        {
+                            BookId = newBook.Id,
+                            AuthorId = Id,
+
+                        };
+                        _context.Books_Authors.Add(book_authors);
+                    }
+                    _context.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+
+                    dbContextTransaction.Rollback();
+                }
             }
 
             return newBook;
