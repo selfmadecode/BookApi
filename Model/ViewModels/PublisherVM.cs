@@ -14,4 +14,11 @@ namespace BookApi.Model.ViewModels
         public string Name { get; set; }
 
     }
+
+    public class PublisherWithBookVM
+    {
+        public string Name { get; set; }
+        public IEnumerable<string> BooksPublished { get; set; }
+
+    }
 }

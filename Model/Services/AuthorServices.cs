@@ -28,5 +28,16 @@ namespace BookApi.Model.Services
             _dbContext.SaveChanges();
             return newAuthor;
         }
+
+        public AuthorWithBookVM GetAuthorWithBook(int id)
+        {
+            // use automapper
+            return _dbContext.Authors.Where(n => n.Id == id)
+                .Select(book => new AuthorWithBookVM
+                {
+                    Name = book.Name,
+                    AllBook = book.Book_Authors.Select(b => b.Book.Title).ToList()
+                }).FirstOrDefault();            
+        }
     }
 }

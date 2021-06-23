@@ -10,5 +10,7 @@ namespace BookApi.Model.Interfaces
     public interface IAuthor
     {
         Author AddAuthor(AuthorVM author);
+
+        AuthorWithBookVM GetAuthorWithBook(int id);
     }
 }

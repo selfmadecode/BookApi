@@ -28,5 +28,13 @@ namespace BookApi.Model.Services
 
             return newPublisher;
         }
+
+        public PublisherWithBookVM GetPublisherWithBook(int id)
+        => _dbContext.Publishers.Where(i => i.Id == id)
+            .Select(book => new PublisherWithBookVM
+            {
+                Name = book.Name,
+                BooksPublished = book.Books.Select(n => n.Title).ToList()
+            }).FirstOrDefault();
     }
 }

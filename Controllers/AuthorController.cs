@@ -23,8 +23,17 @@ namespace BookApi.Controllers
         [HttpPost]
         public IActionResult AddAuthor(AuthorVM author)
         {
-           var newAuthor = _author.AddAuthor(author);
-            return Created(nameof(AddAuthor), newAuthor );
+            var newAuthor = _author.AddAuthor(author);
+            return Created(nameof(AddAuthor), newAuthor);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetAuthorWithBook(int id)
+        {
+            var authorAndBook = _author.GetAuthorWithBook(id);
+
+            if(authorAndBook == null) return NotFound();
+
+            return Ok(authorAndBook);
         }
     }
 }

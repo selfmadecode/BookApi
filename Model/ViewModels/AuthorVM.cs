@@ -11,4 +11,9 @@ namespace BookApi.Model.ViewModels
         [Required]
         public string Name { get; set; }
     }
+    public class AuthorWithBookVM
+    {
+        public string Name { get; set; }
+        public IEnumerable<string> AllBook { get; set; }
+    }
 }

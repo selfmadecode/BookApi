@@ -26,5 +26,15 @@ namespace BookApi.Controllers
             var newPublisher = _publisher.AddPublisher(publisher);
             return Created(nameof(AddPublisher), newPublisher);
         }
+
+        [HttpGet]
+        public IActionResult GetPublisherWithBooks(int id)
+        {
+            var response = _publisher.GetPublisherWithBook(id);
+
+            if (response == null) return NotFound();
+
+            return Ok(response);
+        }
     }
 }
