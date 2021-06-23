@@ -13,6 +13,9 @@ namespace BookApi.Infrastructure
         public MappingProfiles()
         {
             CreateMap<BookVM, Book>().ReverseMap();
+            //CreateMap<Book, BookWithAuthorsVM>()
+            //    .ForMember(p => p.PublisherName, opt => opt.MapFrom(p => p.Publisher.Name))
+            //    .ForMember(a => a.AuthorsName, opt => opt.MapFrom(a =>a.Book_Authors.Select(n => n.Author.Name).ToList()));
         }
     }
 }

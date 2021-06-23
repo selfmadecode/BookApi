@@ -10,7 +10,7 @@ namespace BookApi.Model.Interfaces
     {
         Book AddBookWithPublisherAndAuthors(BookVM book);
         IEnumerable<Book> GetBooks();
-        Book GetBookById(int id);
+        BookWithAuthorsVM GetBookById(int id);
         Book UpdateBook(int id, BookVM book);
         void DeleteBookById(int id);
 

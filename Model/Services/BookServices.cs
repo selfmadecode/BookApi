@@ -2,6 +2,7 @@
 using BookApi.Model.Entities;
 using BookApi.Model.Interfaces;
 using BookApi.Model.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace BookApi.Model.Services
                 try
                 {
                     _context.Add(newBook);
+                    _context.SaveChanges();
 
                     foreach (var Id in book.AuthorIds)
                     {
@@ -45,10 +47,10 @@ namespace BookApi.Model.Services
                     _context.SaveChanges();
                     dbContextTransaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
                     dbContextTransaction.Rollback();
+                    throw new Exception(ex.Message);
                 }
             }
 
@@ -66,12 +68,35 @@ namespace BookApi.Model.Services
             }
         }
 
-        public Book GetBookById(int id)
+        public BookWithAuthorsVM GetBookById(int id)
         {
-            var book = _context.Books.FirstOrDefault(b => b.Id == id);
-            if (book == null) return null;
 
-            return book;            
+            //var bookWithAuthor = _context.Books.Where(b => b.Id == id)
+            //    .Include(n => n.Book_Authors)
+            //    .Include(p => p.Publisher)
+            //    .FirstOrDefault();
+
+            //var bookAndAuthor = _mapper.Map<BookWithAuthorsVM>(bookWithAuthor);
+
+            //return bookAndAuthor;
+
+            var bookWithAuthors = _context.Books.Where(b => b.Id == id)
+                .Select(book => new BookWithAuthorsVM
+                {
+                    Genre = book.Genre,
+                    CoverUrl = book.CoverUrl,
+                    IsRead = book.IsRead,
+                    DateRead = book.DateRead,
+                    Description = book.Description,
+                    Rate = book.Rate,
+                    Title = book.Title,
+                    PublisherName = book.Publisher.Name,
+                    AuthorsName = book.Book_Authors.Select(n => n.Author.Name).ToList()
+                }).FirstOrDefault();
+
+            if (bookWithAuthors == null) return null;
+
+            return bookWithAuthors;
         }
 
         public IEnumerable<Book> GetBooks()
