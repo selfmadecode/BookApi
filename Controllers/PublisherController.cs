@@ -27,10 +27,10 @@ namespace BookApi.Controllers
             return Created(nameof(AddPublisher), newPublisher);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetPublisherWithBooks(int id)
+        [HttpGet("{publisherId}")]
+        public IActionResult GetPublisherWithBooks(int publisherId)
         {
-            var response = _publisher.GetPublisherWithBook(id);
+            var response = _publisher.GetPublisherWithBook(publisherId);
 
             if (response == null) return NotFound();
 
