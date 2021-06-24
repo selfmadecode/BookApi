@@ -26,10 +26,10 @@ namespace BookApi.Controllers
             var newAuthor = _author.AddAuthor(author);
             return Created(nameof(AddAuthor), newAuthor);
         }
-        [HttpGet("{id}")]
-        public IActionResult GetAuthorWithBook(int id)
+        [HttpGet("{bookId}")]
+        public IActionResult GetAuthorWithBook(int bookId)
         {
-            var authorAndBook = _author.GetAuthorWithBook(id);
+            var authorAndBook = _author.GetAuthorWithBook(bookId);
 
             if(authorAndBook == null) return NotFound();
 
