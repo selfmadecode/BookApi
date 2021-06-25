@@ -13,6 +13,6 @@ namespace BookApi.Model.Interfaces
 
         PublisherWithBookVM GetPublisherWithBook(int id);
 
-        IEnumerable<Publisher> GetAllPublsihers();
+        IEnumerable<Publisher> GetAllPublsihers(string orderBy, string searchParam);
     }
 }

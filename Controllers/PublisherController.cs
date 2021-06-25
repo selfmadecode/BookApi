@@ -21,11 +21,11 @@ namespace BookApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPublisher(string orderBy)
+        public IActionResult GetPublisher(string orderBy, string searchParam)
         {
             try
             {
-                var publisher = _publisher.GetAllPublsihers(orderBy);
+                var publisher = _publisher.GetAllPublsihers(orderBy, searchParam);
 
                 if (publisher == null) return NotFound();
 

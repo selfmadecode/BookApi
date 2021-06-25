@@ -17,7 +17,7 @@ namespace BookApi.Model.Services
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Publisher> GetAllPublsihers(string orderBy)
+        public IEnumerable<Publisher> GetAllPublsihers(string orderBy, string searchParam)
         {
             var publishers = _dbContext.Publishers.ToList();
 
@@ -25,14 +25,19 @@ namespace BookApi.Model.Services
             {
                 switch (orderBy)
                 {
-                    case "name_Desc":
-                        publishers.OrderByDescending(n => n.Name).ToList();
+                    case "name_desc":
+                        publishers = publishers.OrderByDescending(n => n.Name).ToList();
                         break;
-                    case "name_Ascd":
-                        publishers.OrderBy(n => n.Name).ToList();
+                    case "name_ascd":
+                        publishers = publishers.OrderBy(n => n.Name).ToList();
                         break;
                 }
             }
+
+            if (!string.IsNullOrEmpty(searchParam))
+                publishers = publishers
+                    .Where(n => n.Name
+                    .Contains(searchParam, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
             return publishers;
         }
