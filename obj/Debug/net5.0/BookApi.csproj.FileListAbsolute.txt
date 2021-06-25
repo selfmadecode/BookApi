@@ -61,3 +61,6 @@ C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.dll
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\ref\BookApi.dll
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.pdb
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.genruntimeconfig.cache
+C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

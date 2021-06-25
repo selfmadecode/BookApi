@@ -25,7 +25,9 @@ namespace BookApi.Controllers
             try
             {
                 var newBook = _book.AddBookWithPublisherAndAuthors(book);
-                return Created(nameof(AddBook), newBook);
+
+                return CreatedAtRoute("GetBook", new { bookId = newBook.Id }, newBook);
+                //return Created(nameof(AddBook), newBook);
             }
             catch (Exception ex)
             {
@@ -48,7 +50,7 @@ namespace BookApi.Controllers
             }
         }
 
-        [HttpGet("{bookId}")]
+        [HttpGet("{bookId}", Name = "GetBook")]
         public IActionResult GetBookById(int bookId)
         {
             try
