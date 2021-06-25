@@ -37,7 +37,8 @@ namespace BookApi.Model.Services
             if (!string.IsNullOrEmpty(searchParam))
                 publishers = publishers
                     .Where(n => n.Name
-                    .Contains(searchParam, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                    .Contains(searchParam, StringComparison.CurrentCultureIgnoreCase))
+                    .ToList();
 
             return publishers;
         }
