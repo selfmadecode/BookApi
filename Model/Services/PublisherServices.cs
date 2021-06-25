@@ -16,6 +16,26 @@ namespace BookApi.Model.Services
         {
             _dbContext = dbContext;
         }
+
+        public IEnumerable<Publisher> GetAllPublsihers(string orderBy)
+        {
+            var publishers = _dbContext.Publishers.ToList();
+
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                switch (orderBy)
+                {
+                    case "name_Desc":
+                        publishers.OrderByDescending(n => n.Name).ToList();
+                        break;
+                    case "name_Ascd":
+                        publishers.OrderBy(n => n.Name).ToList();
+                        break;
+                }
+            }
+
+            return publishers;
+        }
         public Publisher AddPublisher(PublisherVM publisher)
         {
             var newPublisher = new Publisher

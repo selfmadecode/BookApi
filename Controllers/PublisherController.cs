@@ -20,6 +20,24 @@ namespace BookApi.Controllers
             _publisher = publisher;
         }
 
+        [HttpGet]
+        public IActionResult GetPublisher(string orderBy)
+        {
+            try
+            {
+                var publisher = _publisher.GetAllPublsihers(orderBy);
+
+                if (publisher == null) return NotFound();
+
+                return Ok(publisher);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddPublisher(PublisherVM publisher)
         {
