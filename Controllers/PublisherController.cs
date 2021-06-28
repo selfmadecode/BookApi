@@ -20,7 +20,7 @@ namespace BookApi.Controllers
             _publisher = publisher;
         }
 
-        [HttpGet]
+        [HttpGet("get-publisher")]
         public IActionResult GetPublisher(string orderBy, string searchParam)
         {
             try
