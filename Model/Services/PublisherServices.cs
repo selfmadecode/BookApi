@@ -19,17 +19,17 @@ namespace BookApi.Model.Services
 
         public IEnumerable<Publisher> GetAllPublsihers(string orderBy, string searchParam)
         {
-            var publishers = _dbContext.Publishers.ToList();
+            var publishers = _dbContext.Publishers as IQueryable<Publisher>;
 
             if (!string.IsNullOrEmpty(orderBy))
             {
                 switch (orderBy)
                 {
                     case "name_desc":
-                        publishers = publishers.OrderByDescending(n => n.Name).ToList();
+                        publishers = publishers.OrderByDescending(n => n.Name);
                         break;
                     case "name_ascd":
-                        publishers = publishers.OrderBy(n => n.Name).ToList();
+                        publishers = publishers.OrderBy(n => n.Name);
                         break;
                 }
             }
@@ -37,10 +37,9 @@ namespace BookApi.Model.Services
             if (!string.IsNullOrEmpty(searchParam))
                 publishers = publishers
                     .Where(n => n.Name
-                    .Contains(searchParam, StringComparison.CurrentCultureIgnoreCase))
-                    .ToList();
+                    .Contains(searchParam, StringComparison.CurrentCultureIgnoreCase));
 
-            return publishers;
+            return publishers.ToList();
         }
         public Publisher AddPublisher(PublisherVM publisher)
         {
