@@ -91,5 +91,11 @@ namespace BookApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        public IActionResult Put()
+        {
+            return Ok();
+        }
     }
 }
