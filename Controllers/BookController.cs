@@ -27,6 +27,7 @@ namespace BookApi.Controllers
                 var newBook = _book.AddBookWithPublisherAndAuthors(book);
 
                 return CreatedAtRoute("GetBook", new { bookId = newBook.Id }, newBook);
+                //return CreatedAtAction("GetBookById", new { bookId = newBook.Id }, newBook);
                 //return Created(nameof(AddBook), newBook);
             }
             catch (Exception ex)

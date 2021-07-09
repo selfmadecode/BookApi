@@ -1,0 +1,18 @@
+﻿REST is intended to evoke an image of how a well designed web application behaves
+
+
+
+
+REST CONSTRAINTS:
+Uniform Interface - API and consumers share one single, technical interface:
+	URI, Method, media type (payload)
+	Content-Type header is used to signify the type of a payload in the request body
+	e.g Application/Json, XML
+	Accept header is used by HTTP clients to tell
+	the server which type of content they expect/prefer as response.
+
+Manipulation of resources through representations - When a client holds a representation of
+	a resource, including any possible meta data, it should have enough information to modify
+	or delete the resources on the server, provided it has permission to do so
+	...the response should contain the uri to delete, get, post the resource if the api supports
+	...the operations
