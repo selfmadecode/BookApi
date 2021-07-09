@@ -11,8 +11,36 @@ Uniform Interface - API and consumers share one single, technical interface:
 	Accept header is used by HTTP clients to tell
 	the server which type of content they expect/prefer as response.
 
-Manipulation of resources through representations - When a client holds a representation of
-	a resource, including any possible meta data, it should have enough information to modify
-	or delete the resources on the server, provided it has permission to do so
-	...the response should contain the uri to delete, get, post the resource if the api supports
-	...the operations
+		Manipulation of resources through representations - When a client holds a representation of
+			a resource, including any possible meta data, it should have enough information to modify
+			or delete the resources on the server, provided it has permission to do so
+			...the response should contain the uri to delete, get, post the resource if the api supports
+			...the operations
+
+		Self-descriptive message - each message must include enough information to describe how to
+			process the message. when a consumer request a resource from the api, we send the requ
+			est message, and when it gets back data thats a response message
+
+HATEOAS - Hypermedia As The Engine Of Application State
+	- tells the user is the resource can be deleted
+	- if the resource can be created
+	- if the resource can be updated
+	- allows for a self documenting API
+
+Richardson Maturity model
+	Only level 3 API could be considered as restful 
+
+
+ HTTP VERDS
+ GET, PUT, PATCH, POST 
+
+ Resource Naming guidelines
+ URI names should be NOUNS and not Action
+
+ API/GetAuthors - wrong
+ API/Authors - right
+ API/Author - right
+ either you pluralize or not, stay consistent
+
+ Hierarchy in resource should be seen from a URI
+ API/Author/authorId/Course/courseId

@@ -44,6 +44,7 @@ namespace BookApi
             services.AddScoped<IBook, BookServices>();
             services.AddScoped<IAuthor, AuthorServices>();
             services.AddScoped<IPublisher, PublisherServices>();
+            services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
