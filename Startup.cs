@@ -30,7 +30,17 @@ namespace BookApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services.AddControllers(
+                setupAction =>
+                {
+                    // if the value is set to false, and the client
+                    //  request a format not supported by the API,
+                    //  the API will return a response in the
+                    // default format (JSON)
+                    setupAction.ReturnHttpNotAcceptable = true;  
+                })
+                //adding support for XML
+                .AddXmlDataContractSerializerFormatters()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );

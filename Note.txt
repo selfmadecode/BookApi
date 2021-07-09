@@ -44,3 +44,19 @@ Richardson Maturity model
 
  Hierarchy in resource should be seen from a URI
  API/Author/authorId/Course/courseId
+
+
+ STATUS CODE
+ 204 - NO Content - when we Delete
+
+ 400 - client error
+ 400 -badRequest
+ 401 - unauthorized - invalid authetication details
+ 403 - forbidden - authetication suceed but the authenticaed user has no access to the resource
+ 405 - method not allowed - posting to an endpoint that supports GET with Post
+ 406 - not acceptable - requsted a format not supported by the application
+	e.g asking for application/xml type when the api allows only application/json
+415 - unsupported media type
+	sending data in a format not supported by the API
+422 - unprocessible entity
+	used for validation issues
