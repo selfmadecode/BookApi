@@ -1,4 +1,5 @@
-﻿using BookApi.Model.Interfaces;
+﻿using BookApi.Model.DTO;
+using BookApi.Model.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,15 +21,28 @@ namespace BookApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTeachers()
+        public ActionResult<IEnumerable<TeacherDTO>> GetTeachers()
         {
             var teachers = _repository.GetTeachers();
+            var listOfTeachers = new List<TeacherDTO>();
+
+            // use automapper
+            foreach (var teacher in teachers)
+            {
+                var newTeacher = new TeacherDTO
+                {
+                    Name = teacher.FirstName + teacher.LastName,
+                    Id = teacher.Id,
+                    MainCategory = teacher.MainCategory
+                };
+                listOfTeachers.Add(newTeacher);
+            }
 
             //if (!teachers.Any())
             //    return NotFound();
             // if the collection is empty, dont return a 404 not found
 
-            return Ok(teachers);
+            return Ok(listOfTeachers);
         }
 
         [HttpGet("{teacherId}")]
