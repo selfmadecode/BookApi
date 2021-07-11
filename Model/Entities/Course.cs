@@ -18,7 +18,6 @@ namespace BookApi.Model
 
         [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
-
         public Guid TeacherId { get; set; }
     }
 }

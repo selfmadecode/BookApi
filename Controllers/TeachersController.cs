@@ -1,5 +1,7 @@
-﻿using BookApi.Model.DTO;
+﻿using AutoMapper;
+using BookApi.Model.DTO;
 using BookApi.Model.Interfaces;
+using BookApi.Model.Services.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,29 +16,25 @@ namespace BookApi.Controllers
     public class TeachersController : ControllerBase
     {
         private readonly ICourseLibraryRepository _repository;
+        private readonly IMapper _mapper;
 
-        public TeachersController(ICourseLibraryRepository repository)
+        public TeachersController(ICourseLibraryRepository repository, IMapper mapper)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository)); ;
+            if (mapper is null)
+            {
+                throw new ArgumentNullException(nameof(mapper));
+            }
+
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _mapper = mapper;            
         }
 
         [HttpGet]
+        [HttpHead]
         public ActionResult<IEnumerable<TeacherDTO>> GetTeachers()
         {
             var teachers = _repository.GetTeachers();
-            var listOfTeachers = new List<TeacherDTO>();
-
-            // use automapper
-            foreach (var teacher in teachers)
-            {
-                var newTeacher = new TeacherDTO
-                {
-                    Name = teacher.FirstName + teacher.LastName,
-                    Id = teacher.Id,
-                    MainCategory = teacher.MainCategory
-                };
-                listOfTeachers.Add(newTeacher);
-            }
+            var listOfTeachers = _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
 
             //if (!teachers.Any())
             //    return NotFound();
@@ -53,7 +51,8 @@ namespace BookApi.Controllers
             if (teacher == null)
                 return NotFound();
 
-            return Ok(teacher);
+
+            return Ok(_mapper.Map<TeacherDTO>(teacher));
         }
     }
 }
