@@ -16,6 +16,8 @@ namespace BookApi.Infrastructure
             CreateMap<Teacher, TeacherDTO>()
                 .ForMember(s => s.Name, opt => opt.MapFrom(s => $"{s.FirstName} {s.LastName}"))
                 .ForMember(s => s.Age, opt => opt.MapFrom(s => s.DateOfBirth.GetCurrentAge()));
+
+            CreateMap<CreateTeacherDTO, Teacher>();
         }
     }
 }
