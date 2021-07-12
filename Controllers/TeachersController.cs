@@ -54,5 +54,15 @@ namespace BookApi.Controllers
 
             return Ok(_mapper.Map<TeacherDTO>(teacher));
         }
+
+        [HttpPost]
+        public IActionResult CreateTeacher(Guid teacher)
+        {
+            
+
+
+            return Ok(_mapper.Map<TeacherDTO>(teacher));
+        }
+
     }
 }
