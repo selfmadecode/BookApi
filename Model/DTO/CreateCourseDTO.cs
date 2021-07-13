@@ -8,14 +8,19 @@ using System.Threading.Tasks;
 namespace BookApi.Model.DTO
 {
     [CourseDescriptionMustBeDifferentFromTitle]
-    public class CreateCourseDTO //: IValidatableObject
+    public class CreateCourseDTO : CourseManipulationDTO //: IValidatableObject
     {
-        [Required]
-        [MaxLength(100)]
-        public string Title { get; set; }
 
-        [MaxLength(1500)]
-        public string Description { get; set; }
+        //inheriting from the abstarct class so as to get its members
+
+
+
+        //[Required]
+        //[MaxLength(100)]
+        //public string Title { get; set; }
+
+        //[MaxLength(1500)]
+        //public string Description { get; set; }
 
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         //{

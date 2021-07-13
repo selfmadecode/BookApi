@@ -65,7 +65,39 @@ namespace BookApi.Controllers
             var courseToReturn = _mapper.Map<CourseDTO>(newCourse);
 
             return CreatedAtRoute("GetAuthorCourse",
-                new { courseId = courseToReturn.Id, teacherId = teacherId }, courseToReturn);
+                new { courseId = courseToReturn.Id, teacherId }, courseToReturn);
+        }
+
+        [HttpPut("{courseId}")]
+        public IActionResult UpdateCourseForTeacher(Guid teacherId, Guid courseId,
+            UpdateCourseDTO course)
+        {
+            if (!_repository.TeacherExists(teacherId))
+                return NotFound();
+
+            var courseFromRepo = _repository.GetCourse(teacherId, courseId);
+
+            if (courseFromRepo == null)
+            {
+                //upserting - create a resource is the resource dosent exist
+
+                var newCourse = _mapper.Map<Course>(course);
+                newCourse.Id = courseId;
+                _repository.AddCourse(teacherId, newCourse);
+                _repository.Save();
+
+                var courseToReturn = _mapper.Map<CourseDTO>(newCourse);
+
+                return CreatedAtRoute("GetAuthorCourse", new {
+                    courseId = courseToReturn.Id,
+                    teacherId }, courseToReturn);
+            }
+
+            _mapper.Map(course, courseFromRepo);
+            _repository.UpdateCourse(courseFromRepo);
+            _repository.Save();
+
+            return NoContent();
         }
     }
 }

@@ -12,12 +12,12 @@ namespace BookApi.Model.Services.ValidationAttributes
         protected override ValidationResult IsValid(object value,
             ValidationContext validationContext)
         {
-            var course = (CreateCourseDTO)validationContext.ObjectInstance;
+            var course = (CourseManipulationDTO)validationContext.ObjectInstance;
 
             if (course.Title == course.Description)
             {
                 return new ValidationResult("The description should be different from the title",
-                    new[] {nameof(CreateCourseDTO) });
+                    new[] {nameof(CourseManipulationDTO) });
             }
 
             return ValidationResult.Success;

@@ -15,6 +15,8 @@ namespace BookApi.Infrastructure
             CreateMap<Course, CourseDTO>();
 
             CreateMap<CreateCourseDTO, Course>();
+
+            CreateMap<UpdateCourseDTO, Course>();
         }
     }
 }
