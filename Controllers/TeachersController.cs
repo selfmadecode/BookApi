@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookApi.Model;
 using BookApi.Model.DTO;
 using BookApi.Model.Interfaces;
 using BookApi.Model.Services.Helpers;
@@ -43,7 +44,7 @@ namespace BookApi.Controllers
             return Ok(listOfTeachers);
         }
 
-        [HttpGet("{teacherId}")]
+        [HttpGet("{teacherId}", Name ="GetTeacher")]
         public IActionResult GetTeacher(Guid teacherId)
         {
             var teacher = _repository.GetTeacher(teacherId);
@@ -56,13 +57,25 @@ namespace BookApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTeacher(Guid teacher)
+        public ActionResult<TeacherDTO> CreateTeacher(CreateTeacherDTO teacher)
         {
-            
+            var newTeacher = _mapper.Map<Teacher>(teacher);
+            _repository.AddTeacher(newTeacher);
+            _repository.Save();
 
+            var teacherToReturn = _mapper.Map<TeacherDTO>(newTeacher);
 
-            return Ok(_mapper.Map<TeacherDTO>(teacher));
+            //return a response in the location header containing the URL where the created
+            //resource lives
+            return CreatedAtRoute("GetTeacher",
+                new { teacherId = teacherToReturn.Id }, teacherToReturn);
         }
 
+        [HttpOptions]
+        public IActionResult GetTeachersOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
     }
 }

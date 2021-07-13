@@ -8,9 +8,6 @@ namespace BookApi.Model.DTO
 {
     public class CreateTeacherDTO
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
@@ -25,5 +22,8 @@ namespace BookApi.Model.DTO
         [Required]
         [MaxLength(50)]
         public string MainCategory { get; set; }
+
+        public ICollection<CreateCourseDTO> Courses { get; set; }
+            = new List<CreateCourseDTO>();
     }
 }

@@ -13,6 +13,8 @@ namespace BookApi.Infrastructure
         public CourseMappingProfile()
         {
             CreateMap<Course, CourseDTO>();
+
+            CreateMap<CreateCourseDTO, Course>();
         }
     }
 }

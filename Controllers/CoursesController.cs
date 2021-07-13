@@ -36,7 +36,7 @@ namespace BookApi.Controllers
             return Ok(_mapper.Map<IEnumerable<CourseDTO>>(courses));
         }
 
-        [HttpGet("{courseId}")]
+        [HttpGet("{courseId}", Name = "GetAuthorCourse")]
         public ActionResult<CourseDTO> GetAuthorCourse(Guid courseId, Guid teacherId)
         {
             if (!_repository.TeacherExists(teacherId))
@@ -48,6 +48,24 @@ namespace BookApi.Controllers
                 return NotFound();
 
             return Ok(_mapper.Map<CourseDTO>(course));
+        }
+
+        [HttpPost]
+        public IActionResult CreateTeacherWithCourses(Guid teacherId,
+            CreateCourseDTO course)
+        {
+            if (!_repository.TeacherExists(teacherId))
+                return NotFound();
+            
+            
+            var newCourse = _mapper.Map<Course>(course);
+            _repository.AddCourse(teacherId, newCourse);
+            _repository.Save();
+
+            var courseToReturn = _mapper.Map<CourseDTO>(newCourse);
+
+            return CreatedAtRoute("GetAuthorCourse",
+                new { courseId = courseToReturn.Id, teacherId = teacherId }, courseToReturn);
         }
     }
 }
