@@ -60,3 +60,7 @@ Richardson Maturity model
 	sending data in a format not supported by the API
 422 - unprocessible entity
 	used for validation issues
+
+
+
+complex types are inferred from the body
