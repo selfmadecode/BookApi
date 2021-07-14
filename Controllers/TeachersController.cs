@@ -77,5 +77,19 @@ namespace BookApi.Controllers
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
             return Ok();
         }
+
+        [HttpDelete("{teacherId}")]
+        public IActionResult DeleteTeacher(Guid teacherId)
+        {
+            var teacherFromRepo = _repository.GetTeacher(teacherId);
+
+            if (teacherFromRepo == null)
+                return NotFound();
+
+            _repository.DeleteTeacher(teacherFromRepo);
+            _repository.Save();
+
+            return NoContent();
+        }
     }
 }

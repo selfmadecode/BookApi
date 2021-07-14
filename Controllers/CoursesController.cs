@@ -99,5 +99,23 @@ namespace BookApi.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{courseId}")]
+        public IActionResult DeleteCourseForTeacher(Guid teacherId, Guid courseId)
+        {
+            if (!_repository.TeacherExists(teacherId))
+                return NotFound();
+
+            var courseFromRepo = _repository.GetCourse(teacherId, courseId);
+
+            if (courseFromRepo == null)
+            {
+                return NotFound();                
+            }
+
+            _repository.DeleteCourse(courseFromRepo);
+            _repository.Save();
+            return NoContent();
+        }
     }
 }
