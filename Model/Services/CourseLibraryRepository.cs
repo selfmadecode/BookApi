@@ -136,6 +136,7 @@ namespace BookApi.Model.Services
                     case "name_desc":
                         teacher = teacher.OrderByDescending(n => n.FirstName);
                         break;
+
                     case "name_ascd":
                         teacher = teacher.OrderBy(n => n.FirstName);
                         break;

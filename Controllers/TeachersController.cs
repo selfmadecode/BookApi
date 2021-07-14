@@ -32,9 +32,9 @@ namespace BookApi.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<TeacherDTO>> GetTeachers()
+        public ActionResult<IEnumerable<TeacherDTO>> GetTeachers([FromRoute] DataFilters filters)
         {
-            var teachers = _repository.GetTeachers();
+            var teachers = _repository.GetTeachers(filters);
             var listOfTeachers = _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
 
             //if (!teachers.Any())
