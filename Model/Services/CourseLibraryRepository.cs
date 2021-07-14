@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BookApi.Model.Entities;
 using BookApi.Model.Interfaces;
+using BookApi.Model.Services.Helpers;
 using BookApi.Model.ViewModels;
 
 
@@ -119,9 +120,29 @@ namespace BookApi.Model.Services
             return _context.Teachers.FirstOrDefault(a => a.Id == teacherId);
         }
 
-        public IEnumerable<Teacher> GetTeachers()
+        public IEnumerable<Teacher> GetTeachers(DataFilters filters)
         {
-            return _context.Teachers.ToList<Teacher>();
+            var teacher = _context.Teachers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filters.SearchParam))
+                teacher = teacher.Where(
+                    s => s.FirstName.Contains(filters.SearchParam,
+                    StringComparison.CurrentCultureIgnoreCase));
+
+            if (!string.IsNullOrEmpty(filters.OrderBy))
+            {
+                switch (filters.OrderBy)
+                {
+                    case "name_desc":
+                        teacher = teacher.OrderByDescending(n => n.FirstName);
+                        break;
+                    case "name_ascd":
+                        teacher = teacher.OrderBy(n => n.FirstName);
+                        break;
+                }
+            }
+
+            return teacher.ToList();
         }
          
         public IEnumerable<Teacher> GetTeachers(IEnumerable<Guid> teacherIds)

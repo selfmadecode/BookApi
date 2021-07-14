@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BookApi.Model.Entities;
+using BookApi.Model.Services.Helpers;
 
 namespace BookApi.Model.Interfaces
 {
@@ -11,7 +12,7 @@ namespace BookApi.Model.Interfaces
         void AddCourse(Guid teacherId, Course course);
         void UpdateCourse(Course course);
         void DeleteCourse(Course course);
-        IEnumerable<Teacher> GetTeachers();
+        IEnumerable<Teacher> GetTeachers(DataFilters filters);
         Teacher GetTeacher(Guid teacherId);
         IEnumerable<Teacher> GetTeachers(IEnumerable<Guid> teacherIds);
         void AddTeacher(Teacher teacher);
