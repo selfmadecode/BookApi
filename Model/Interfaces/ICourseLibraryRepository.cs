@@ -12,7 +12,7 @@ namespace BookApi.Model.Interfaces
         void AddCourse(Guid teacherId, Course course);
         void UpdateCourse(Course course);
         void DeleteCourse(Course course);
-        IEnumerable<Teacher> GetTeachers(TeacherResourceParameters filters);
+        PagedList<Teacher> GetTeachers(TeacherResourceParameters filters);
         Teacher GetTeacher(Guid teacherId);
         IEnumerable<Teacher> GetTeachers(IEnumerable<Guid> teacherIds);
         void AddTeacher(Teacher teacher);

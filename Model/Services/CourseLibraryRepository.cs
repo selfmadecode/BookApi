@@ -120,7 +120,7 @@ namespace BookApi.Model.Services
             return _context.Teachers.FirstOrDefault(a => a.Id == teacherId);
         }
 
-        public IEnumerable<Teacher> GetTeachers(TeacherResourceParameters filters)
+        public PagedList<Teacher> GetTeachers(TeacherResourceParameters filters)
         {
             var teacher = _context.Teachers.AsQueryable();
 
@@ -149,7 +149,8 @@ namespace BookApi.Model.Services
                         break;
                 }
             }
-            return teacher.ToList();
+            return PagedList<Teacher>.Create(teacher,
+                filters.PageNumber, filters.PageSize);
         }
          
         public IEnumerable<Teacher> GetTeachers(IEnumerable<Guid> teacherIds)
