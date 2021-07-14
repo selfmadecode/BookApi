@@ -63,4 +63,4 @@ Richardson Maturity model
 
 
 
-complex types are inferred from the body
+complex types are inferred from the body of a request

@@ -120,14 +120,21 @@ namespace BookApi.Model.Services
             return _context.Teachers.FirstOrDefault(a => a.Id == teacherId);
         }
 
-        public IEnumerable<Teacher> GetTeachers(DataFilters filters)
+        public IEnumerable<Teacher> GetTeachers(TeacherResourceParameters filters)
         {
             var teacher = _context.Teachers.AsQueryable();
 
             if (!string.IsNullOrEmpty(filters.SearchParam))
-                teacher = teacher.Where(
-                    s => s.FirstName.Contains(filters.SearchParam,
-                    StringComparison.CurrentCultureIgnoreCase));
+            {
+                //trim only removes whitespace from the begining and end of a string
+                //.Replace(" ", string.Empty) removes all occurence of whitespace
+                var searchQuery = filters.SearchParam.Trim().ToLower();
+
+                teacher = teacher
+                    .Where(s => s.FirstName.Contains(searchQuery)
+                    || s.MainCategory.Contains(searchQuery));
+            }
+                
 
             if (!string.IsNullOrEmpty(filters.OrderBy))
             {
@@ -142,7 +149,6 @@ namespace BookApi.Model.Services
                         break;
                 }
             }
-
             return teacher.ToList();
         }
          

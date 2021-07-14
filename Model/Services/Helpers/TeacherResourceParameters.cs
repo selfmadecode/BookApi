@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookApi.Model.Services.Helpers
 {
-    public class DataFilters
+    public class TeacherResourceParameters
     {
         public string SearchParam { get; set; }
         public string OrderBy { get; set; }
