@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BookApi.Controllers
@@ -30,12 +31,33 @@ namespace BookApi.Controllers
             _mapper = mapper;            
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetTeachers")]
         [HttpHead]
         public ActionResult<IEnumerable<TeacherDTO>> GetTeachers([FromQuery] TeacherResourceParameters filters)
         {
-            var teachers = _repository.GetTeachers(filters);
-            var listOfTeachers = _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
+            var teachersFromRepo = _repository.GetTeachers(filters);
+
+            //creating meta data
+            var previousPage = teachersFromRepo.HasPrevious ?
+                CreateTeachersResourceUri(filters, ResourceUriType.PreviousPage) : null;
+
+            var nextPage = teachersFromRepo.HasNext ?
+                CreateTeachersResourceUri(filters, ResourceUriType.NextPage) : null;
+
+
+            var paginationMetaData = new
+            {
+                totalCount = teachersFromRepo.TotalCount,
+                pageSize = teachersFromRepo.PageSize,
+                currentPage = teachersFromRepo.CurrentPage,
+                totalPages = teachersFromRepo.TotalPages,
+                previousPage,
+                nextPage
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetaData));
+
+            var listOfTeachers = _mapper.Map<IEnumerable<TeacherDTO>>(teachersFromRepo);
 
             //if (!teachers.Any())
             //    return NotFound();
@@ -90,6 +112,41 @@ namespace BookApi.Controllers
             _repository.Save();
 
             return NoContent();
+        }
+
+        private string CreateTeachersResourceUri(TeacherResourceParameters param, ResourceUriType type)
+        {
+            // creating a pagination info for metadata passed to the response header
+            // when calling the GetTeachers method
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return Url.Link("GetTeachers", new
+                    {
+                        pageNumber = param.PageNumber - 1,
+                        pageSize = param.PageSize,
+                        searchParam = param.SearchParam,
+                        orderBy = param.OrderBy
+                    });
+
+                case ResourceUriType.NextPage:
+                    return Url.Link("GetTeachers", new
+                    {
+                        pageNumber = param.PageNumber + 1,
+                        pageSize = param.PageSize,
+                        searchParam = param.SearchParam,
+                        orderBy = param.OrderBy
+                    });
+
+                default:
+                    return Url.Link("GetTeachers", new
+                    {
+                        pageNumber = param.PageNumber,
+                        pageSize = param.PageSize,
+                        searchParam = param.SearchParam,
+                        orderBy = param.OrderBy
+                    });
+            }
         }
     }
 }

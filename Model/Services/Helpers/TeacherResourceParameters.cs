@@ -8,7 +8,7 @@ namespace BookApi.Model.Services.Helpers
     public class TeacherResourceParameters
     {
         const int maxPageSize = 20;
-        public string SearchParam { get; set; }
+        public string SearchParam { get; set; } 
         public string OrderBy { get; set; }
 
         public int PageNumber { get; set; } = 1;
