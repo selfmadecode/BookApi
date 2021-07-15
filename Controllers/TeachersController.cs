@@ -87,6 +87,7 @@ namespace BookApi.Controllers
             _repository.Save();
 
             var teacherToReturn = _mapper.Map<TeacherDTO>(newTeacher);
+            teacherToReturn = CreateLinksForTeachers(teacherToReturn);
 
             //return a response in the location header containing the URL where the created
             //resource lives
