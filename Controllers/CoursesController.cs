@@ -24,7 +24,7 @@ namespace BookApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAuthorCourses")]
         public ActionResult<IEnumerable<CourseDTO>> GetAuthorCourses(Guid teacherId)
         {
 
@@ -50,8 +50,8 @@ namespace BookApi.Controllers
             return Ok(_mapper.Map<CourseDTO>(course));
         }
 
-        [HttpPost]
-        public IActionResult CreateTeacherWithCourses(Guid teacherId,
+        [HttpPost(Name = "CreateCourseForTeacher")]
+        public IActionResult CreateCourseForTeacher(Guid teacherId,
             CreateCourseDTO course)
         {
             if (!_repository.TeacherExists(teacherId))

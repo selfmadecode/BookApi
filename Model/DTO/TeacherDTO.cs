@@ -21,5 +21,7 @@ namespace BookApi.Model.DTO
         [Required]
         [MaxLength(50)]
         public string MainCategory { get; set; }
+
+        public ICollection<LinkDTO> Links { get; set; } = new List<LinkDTO>();
     }
 }

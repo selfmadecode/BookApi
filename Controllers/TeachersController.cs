@@ -74,8 +74,9 @@ namespace BookApi.Controllers
             if (teacher == null)
                 return NotFound();
 
+            var teacherDto = _mapper.Map<TeacherDTO>(teacher);
 
-            return Ok(_mapper.Map<TeacherDTO>(teacher));
+            return Ok(CreateLinksForTeachers(teacherDto));
         }
 
         [HttpPost]
@@ -100,7 +101,7 @@ namespace BookApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{teacherId}")]
+        [HttpDelete("{teacherId}", Name ="DeleteTeacher")]
         public IActionResult DeleteTeacher(Guid teacherId)
         {
             var teacherFromRepo = _repository.GetTeacher(teacherId);
@@ -147,6 +148,26 @@ namespace BookApi.Controllers
                         orderBy = param.OrderBy
                     });
             }
+        }
+
+        private TeacherDTO CreateLinksForTeachers(TeacherDTO teacher)
+        {
+            var id = teacher.Id;
+
+             teacher.Links.Add(
+                new LinkDTO(Url.Link("GetTeacher",
+                new { teacherId = id }), "self", "GET"));
+
+            teacher.Links.Add(new LinkDTO(Url.Link("DeleteTeacher",
+                new { teacherId = id }), "delete_teacher", "DELETE"));
+
+            teacher.Links.Add(new LinkDTO(Url.Link("CreateCourseForTeacher",
+                new { teacherId = id}), "create_course_for_teacher", "POST"));
+
+            teacher.Links.Add(new LinkDTO(Url.Link("GetAuthorCourses",
+                new { teacherId = id}), "get_courses_for_teacher", "GET"));
+
+            return teacher;
         }
     }
 }
