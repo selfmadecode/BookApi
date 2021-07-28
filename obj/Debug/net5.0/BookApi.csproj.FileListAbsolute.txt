@@ -45,7 +45,6 @@ C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\runtimes\win-x86\native\
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.csproj.AssemblyReference.cache
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.AssemblyInfoInputs.cache
 C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.AssemblyInfo.cs
@@ -64,3 +63,4 @@ C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.genruntimeconfig
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\SelfMade\source\repos\BookApi\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\SelfMade\source\repos\BookApi\obj\Debug\net5.0\BookApi.csproj.AssemblyReference.cache

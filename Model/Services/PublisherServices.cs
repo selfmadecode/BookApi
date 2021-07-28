@@ -31,6 +31,10 @@ namespace BookApi.Model.Services
                     case "name_ascd":
                         publishers = publishers.OrderBy(n => n.Name);
                         break;
+
+                    default:
+                        publishers = publishers.OrderBy(n => n.Name);
+                        break;
                 }
             }
 
@@ -61,5 +65,8 @@ namespace BookApi.Model.Services
                 Name = book.Name,
                 BooksPublished = book.Books.Select(n => n.Title).ToList()
             }).FirstOrDefault();
+
+        public Publisher GetPublisherById(int id)
+            => _dbContext.Publishers.FirstOrDefault(publisher => publisher.Id == id);
     }
 }
