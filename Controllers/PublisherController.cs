@@ -38,6 +38,16 @@ namespace BookApi.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetPublisherById(int id)
+        {
+            var publisher = _publisher.GetPublisherById(1);
+            if (publisher == null)
+                return NotFound($"Publisher with id: {id} doesnt exist!");
+
+            return Ok(publisher);
+        }
+
         [HttpPost]
         public IActionResult AddPublisher(PublisherVM publisher)
         {

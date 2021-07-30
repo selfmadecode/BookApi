@@ -10,6 +10,7 @@ namespace BookApi.Model.Interfaces
     public interface IPublisher
     {
         Publisher AddPublisher(PublisherVM publisher);
+        Publisher GetPublisherById(int id);
 
         PublisherWithBookVM GetPublisherWithBook(int id);
 
