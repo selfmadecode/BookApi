@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2021-08-26T16:30:29.2819898Z"
+    },
     "apis1": {
       "restored": true,
       "restoreTime": "2021-08-26T16:22:57.1039593Z"
@@ -11,10 +15,20 @@
       "Type": "resourceGroup",
       "Value": "BookApiResource"
     },
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "096fc667-88b9-4d4d-a339-6023c46c28df"
+    },
     "apis1.subscriptionId": {
       "Name": "apis1.subscriptionId",
       "Type": "subscription",
       "Value": "096fc667-88b9-4d4d-a339-6023c46c28df"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BookApiResource"
     }
   }
 }
