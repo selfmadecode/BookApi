@@ -30,8 +30,8 @@ steps:
   inputs:
    command: publish
    publishWebProjects: false
-   projects: 'src/BookApi/*.csproj'
-   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+   #projects: 'src/BookApi/*.csproj'
+   arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
